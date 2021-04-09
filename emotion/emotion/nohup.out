@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "test_emssiom.py", line 14, in <module>
+    import torch
+  File "/root/.miniconda3/envs/pytorch_env/lib/python3.7/site-packages/torch/__init__.py", line 189, in <module>
+    from torch._C import *
+RuntimeError: KeyboardInterrupt: 
+test_emssiom.py:21: FutureWarning: Possible set difference at position 41
+  text = re.sub(r"[A-Za-z0-9\\=\\%\[\]\,\（\）\>\<:&lt;\/#\. -----\_]", '', text)
+test_emssiom.py:21: FutureWarning: Possible set difference at position 43
+  text = re.sub(r"[A-Za-z0-9\\=\\%\[\]\,\（\）\>\<:&lt;\/#\. -----\_]", '', text)
+test_emssiom.py:21: FutureWarning: Possible set difference at position 44
+  text = re.sub(r"[A-Za-z0-9\\=\\%\[\]\,\（\）\>\<:&lt;\/#\. -----\_]", '', text)
+test_emssiom.py:59: TqdmDeprecationWarning: This function will be removed in tqdm==5.0.0
+Please use `tqdm.notebook.tqdm` instead of `tqdm.tqdm_notebook`
+  for _, row in tqdm_notebook(df.iterrows()):
+test_emssiom.py:134: TqdmDeprecationWarning: This function will be removed in tqdm==5.0.0
+Please use `tqdm.notebook.tqdm` instead of `tqdm.tqdm_notebook`
+  bar = tqdm_notebook(val_loader)
+HBox(children=(FloatProgress(value=1.0, bar_style='info', max=1.0), HTML(value='')))
+
+HBox(children=(FloatProgress(value=0.0, max=3.0), HTML(value='')))
+3
+torch.Size([8, 302]) torch.Size([8, 302])
+torch.Size([8, 302]) torch.Size([8, 302])
+torch.Size([1, 302]) torch.Size([1, 302])
+
+0     1
+1     0
+2     0
+3     0
+4     0
+5     0
+6     0
+7     0
+8     0
+9     0
+10    0
+11    0
+12    0
+13    0
+14    0
+15    0
+16    0
+Name: label, dtype: int64
