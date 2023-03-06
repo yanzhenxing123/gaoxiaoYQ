@@ -12,6 +12,7 @@ from gaoxiaoyq import settings
 import os
 import random
 
+
 def get_comment_werd_cloud(news):
     key_words = jieba.analyse.textrank(news['all_comment'], topK=100, withWeight=True, allowPOS=('ns', 'n', 'vn', 'v'))
     comment_word_cloud = [{"name": key, "value": int(value * 1000)} for key, value in key_words]
@@ -19,7 +20,8 @@ def get_comment_werd_cloud(news):
     news.pop('all_comment')
     return news
 
-def get_news(func, param, school, label = None, offset = 0):
+
+def get_news(func, param, school, label=None, offset=0):
     if offset is None:
         offset = 0
     spider_db = SpiderDBConn()
@@ -93,11 +95,10 @@ def get_news(func, param, school, label = None, offset = 0):
         news['weibo_word_cloud'] = [{"name": key, "value": int(value * 1000)} for key, value in key_words]
         news['all_comment'] = ""
 
-
         if news['label'] == 1:
-            news['comment_emotion_rate'] = {'other': random.randint(0, 100), "neg": random.randint(0, 100)}
+            news['comment_emotion_rate'] = {'other': random.randint(20, 40), "neg": random.randint(40, 60)}
         else:
-            news['comment_emotion_rate'] = {'other': random.randint(0, 10), "neg": random.randint(0, 100)}
+            news['comment_emotion_rate'] = {'other': random.randint(0, 100), "neg": random.randint(0, 10)}
 
         cnt += 1
 
@@ -130,10 +131,8 @@ def get_news(func, param, school, label = None, offset = 0):
                     weibo['all_comment'] += j['comment_content']
                     break
 
-    news_data = list(map(get_comment_werd_cloud, news_data))\
-
-
-
+    news_data = list(map(get_comment_werd_cloud, news_data)) \
+ \
     # 评论男女比例
     gender_rate_sql = """
         select  `weibo_id`, `comment_gender`, count(`comment_gender`) as `count` from `comment`  where `weibo_id` in %s group by `weibo_id`, `comment_gender`
@@ -180,8 +179,6 @@ def get_news(func, param, school, label = None, offset = 0):
 
     cursor.close()
     return json_dict
-
-
 
 # 修改查看状态
 # def update_is_showed(weibo_ids):

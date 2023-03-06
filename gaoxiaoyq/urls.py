@@ -16,15 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
+
 
 #加载静态界面index首页
-def index(request):
-    request.META["CSRF_COOKIE_USED"] = True
-    return render(request, '')
+from gaoxiaoyq import settings
+
+
+# def index(request):
+#     request.META["CSRF_COOKIE_USED"] = True
+#     return render(request, '')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/news/', include("hot_news.urls", namespace='hot_news')),
     path('api/user/', include("user_profile.urls", namespace='profile')),
-    path('', index, name="index")
+    path('', TemplateView.as_view(template_name='index.html'), name="index")
+
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# 配置图像的url
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -24,7 +24,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from gaoxiaoyq.settings import CRAWL_HEADERS
 
-
 # from DBUtils.PooledDB import PooledDB
 
 # def mysql_connection():
@@ -44,11 +43,13 @@ from gaoxiaoyq.settings import CRAWL_HEADERS
 from hot_news.middlewares import TokenAuth
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
+
 class HotThreeNews(APIView):
     # 访问权限
     permission_classes = [IsAuthenticated, ]
     # 是否认证
     authentication_classes = [JSONWebTokenAuthentication, ]
+
     def get(self, request):
         param = request.query_params.get('aspect')
         label = request.query_params.get('label')
@@ -259,8 +260,8 @@ class earlyWarningView(APIView):
     def get(self, request):
         # if not is_login(request):
         #     return JsonResponse({'code': 10005, 'msg': 'not login'})
-        news = get_news(20, None, None, 1)['data']
-        news = [news_piece for news_piece in news if news_piece['hot_value'] > 500]
+        news = get_news(20, None, "cqupt", 1)['data']
+        news = [news_piece for news_piece in news if news_piece['hot_value'] >= 0]
         news_num = len(news)
         if not news_num:
             return Response({"code": 200, "data": None})
@@ -277,10 +278,10 @@ class earlyWarningView(APIView):
 
         # 发送邮件 判断redis中的时间
         if not expire_time or float(expire_time) - time.time() < 0:
-            r.hset("sent_email", request.user.username, time.time() + 60 * 60)
+            r.hset("sent_email", request.user.username, time.time() + 5)
             # 收件人
             receiver = [request.user.email]
-            html_message = "<h1>您有%d条舆情需要处理</h1>" % news_num
+            html_message = "<h1>您有%d条舆情需要处理</h1>\n 链接：http://www.yanzx.top/#/cqupt" % news_num
             send_mail(subject, message, sender, receiver, html_message=html_message)
         return Response({"code": 200, "data": news})
 
@@ -523,7 +524,11 @@ class CquptAspectNums(APIView):
                 'data': data
             }
         )
+
+
 from utils import get_search_news
+
+
 class SeachView(APIView):
     def get(self, request):
         key_words = request.query_params.get('q')
@@ -535,19 +540,11 @@ class SeachView(APIView):
         if not key_words:
             return Response({'code': 200, 'data': None})
         res = get_search_news.get_news(key_words, offset)
-        # sql = "select `aspect`, count(*) as `nums`  from weibo where college = '重庆邮电大学' group by `aspect` order by `nums` desc"
-        # cursor.execute(sql)
-        # data = cursor.fetchall()
-        # select_label_num_sql = "select * from `weibo` where `raw_text` like '%{}%' limit {},20".format(key_words, offset)
-        # print(select_label_num_sql)
         return Response(res)
-
-
-
 
 
 class TestView(APIView):
     def get(self, request):
         print("*****")
         print(request.user)
-        return Response({"code":"200", 'msg': 'test'})
+        return Response({"code": "200", 'msg': 'test'})
