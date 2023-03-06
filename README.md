@@ -1,7 +1,6 @@
 # 高校舆情大数据分析与监控平台
 
-<img src="C:\Users\20924\AppData\Roaming\Typora\typora-user-images\image-20230306114637051.png" alt="image-20230306114637051" style="zoom: 67%;" />
-
+![image-20230306115817351](http://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/typora/202303/06/115818-439374.png)
 ## 前端展示
 
 ### 1. 监控大屏模块
