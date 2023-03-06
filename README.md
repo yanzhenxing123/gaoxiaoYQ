@@ -1,6 +1,7 @@
 # 高校舆情大数据分析与监控平台
 
-![image-20230306115817351](http://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/typora/202303/06/115818-439374.png)
+<img src="http://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/typora/202303/06/115818-439374.png" alt="image-20230306115817351" style="zoom:50%;" />
+
 ## 前端展示
 
 ### 1. 监控大屏模块
